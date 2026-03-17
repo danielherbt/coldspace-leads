@@ -1,0 +1,24 @@
+packages:
+  "framer-motion": "Animations for page transitions and scroll reveals"
+  "@hookform/resolvers": "Zod integration for react-hook-form"
+  "react-hook-form": "Form state management"
+  "clsx": "Utility for conditionally joining classNames"
+  "tailwind-merge": "Utility for merging tailwind classes without style conflicts"
+
+images:
+  - path: "artifacts/coldspace-solutions/public/images/hero-hvac.png"
+    description: "A wide shot of a modern, clean commercial HVAC rooftop unit against a clear blue sky, professional photography, cinematic lighting"
+    aspect_ratio: "16:9"
+  - path: "artifacts/coldspace-solutions/public/images/tech-team.png"
+    description: "Two friendly, professional HVAC technicians in clean dark blue uniforms standing confidently next to a white service van, warm sunlight"
+    aspect_ratio: "16:9"
+  - path: "artifacts/coldspace-solutions/public/images/refrigeration.png"
+    description: "Inside a pristine, bright commercial walk-in cooler or freezer in a high-end restaurant, stainless steel surfaces, cold atmosphere"
+    aspect_ratio: "16:9"
+  - path: "artifacts/coldspace-solutions/public/images/maintenance.png"
+    description: "Close up of a technician's hands holding a diagnostic tablet inspecting a modern residential air conditioning unit, professional"
+    aspect_ratio: "16:9"
+
+notes:
+  - Expects the API to be running for /api/contact to work.
+  - Using generated hooks from @workspace/api-client-react.
