@@ -16,6 +16,22 @@ export const HealthCheckResponse = zod.object({
 });
 
 /**
+ * Retrieves all contact submissions
+ * @summary Get all contacts
+ */
+export const GetContactsResponseItem = zod.object({
+  id: zod.number(),
+  name: zod.string(),
+  email: zod.string(),
+  phone: zod.string().nullish(),
+  service: zod.string(),
+  message: zod.string(),
+  language: zod.string(),
+  createdAt: zod.date(),
+});
+export const GetContactsResponse = zod.array(GetContactsResponseItem);
+
+/**
  * Submits a contact/lead form from the website
  * @summary Submit contact form
  */
@@ -44,4 +60,33 @@ export const SubmitContactBody = zod.object({
   ]),
   message: zod.string().max(submitContactBodyMessageMax),
   language: zod.enum(["en", "es"]).default(submitContactBodyLanguageDefault),
+});
+
+/**
+ * Retrieves all dynamic site content
+ * @summary Get site content
+ */
+export const GetContentResponseItem = zod.object({
+  key: zod.string(),
+  value: zod.string().nullish(),
+  updatedAt: zod.date(),
+});
+export const GetContentResponse = zod.array(GetContentResponseItem);
+
+/**
+ * Updates the value for a specific content key
+ * @summary Update a content value
+ */
+export const UpdateContentParams = zod.object({
+  key: zod.coerce.string(),
+});
+
+export const UpdateContentBody = zod.object({
+  value: zod.string().nullable(),
+});
+
+export const UpdateContentResponse = zod.object({
+  key: zod.string(),
+  value: zod.string().nullish(),
+  updatedAt: zod.date(),
 });

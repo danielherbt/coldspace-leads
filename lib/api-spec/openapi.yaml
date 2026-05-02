@@ -11,6 +11,8 @@ tags:
     description: Health operations
   - name: contact
     description: Contact form operations
+  - name: content
+    description: Site content operations
 paths:
   /healthz:
     get:
@@ -26,6 +28,20 @@ paths:
               schema:
                 $ref: "#/components/schemas/HealthStatus"
   /contact:
+    get:
+      operationId: getContacts
+      tags: [contact]
+      summary: Get all contacts
+      description: Retrieves all contact submissions
+      responses:
+        "200":
+          description: A list of contacts
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/ContactItem"
     post:
       operationId: submitContact
       tags: [contact]
@@ -50,6 +66,46 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/ErrorResponse"
+  /content:
+    get:
+      operationId: getContent
+      tags: [content]
+      summary: Get site content
+      description: Retrieves all dynamic site content
+      responses:
+        "200":
+          description: A list of content key-value pairs
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/ContentItem"
+  /content/{key}:
+    put:
+      operationId: updateContent
+      tags: [content]
+      summary: Update a content value
+      description: Updates the value for a specific content key
+      parameters:
+        - name: key
+          in: path
+          required: true
+          schema:
+            type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/UpdateContentInput"
+      responses:
+        "200":
+          description: Successfully updated content
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ContentItem"
 components:
   schemas:
     HealthStatus:
@@ -111,3 +167,54 @@ components:
           type: string
       required:
         - error
+    ContactItem:
+      type: object
+      properties:
+        id:
+          type: integer
+        name:
+          type: string
+        email:
+          type: string
+        phone:
+          type: string
+          nullable: true
+        service:
+          type: string
+        message:
+          type: string
+        language:
+          type: string
+        createdAt:
+          type: string
+          format: date-time
+      required:
+        - id
+        - name
+        - email
+        - service
+        - message
+        - language
+        - createdAt
+    ContentItem:
+      type: object
+      properties:
+        key:
+          type: string
+        value:
+          type: string
+          nullable: true
+        updatedAt:
+          type: string
+          format: date-time
+      required:
+        - key
+        - updatedAt
+    UpdateContentInput:
+      type: object
+      properties:
+        value:
+          type: string
+          nullable: true
+      required:
+        - value

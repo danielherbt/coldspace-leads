@@ -1,0 +1,18 @@
+# Source - https://stackoverflow.com/q/56188573
+# Posted by Daniel, modified by community. See post 'Timeline' for change history
+# Retrieved 2026-03-19, License - CC BY-SA 4.0
+
+version: '3.1'
+
+services:
+  db:
+    image: docker.io/library/mysql:8.0
+    restart: always
+    ports:
+      - "3306:3306"
+    volumes:
+      - ./db-data:/var/lib/mysql
+    environment:
+      MYSQL_ROOT_PASSWORD: password
+      MYSQL_DATABASE: coldspace
+

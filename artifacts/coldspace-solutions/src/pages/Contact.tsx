@@ -42,7 +42,7 @@ export default function Contact() {
         onSuccess: () => {
           toast({
             title: language === 'en' ? "Message Sent!" : "¡Mensaje Enviado!",
-            description: language === 'en' 
+            description: language === 'en'
               ? "We've received your inquiry and will contact you shortly."
               : "Hemos recibido su consulta y nos comunicaremos en breve.",
           });
@@ -73,12 +73,12 @@ export default function Contact() {
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 -mt-16 relative z-20">
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
-          
+
           {/* Contact Info Cards */}
           <div className="lg:col-span-1 space-y-6">
             <div className="bg-white p-8 rounded-2xl shadow-xl border border-border h-full">
               <h3 className="text-2xl font-bold mb-8">Get in Touch</h3>
-              
+
               <div className="space-y-8">
                 <div className="flex items-start gap-4">
                   <div className="w-12 h-12 bg-primary/10 rounded-full flex items-center justify-center text-primary shrink-0">
@@ -87,7 +87,7 @@ export default function Contact() {
                   <div>
                     <h4 className="font-bold text-foreground">Phone</h4>
                     <p className="text-muted-foreground mt-1">24/7 Emergency Service</p>
-                    <a href="tel:+15595550100" className="text-lg font-semibold text-secondary hover:text-primary transition-colors block mt-1">+1 (559) 555-0100</a>
+                    <a href="tel:+593962526936" className="text-lg font-semibold text-secondary hover:text-primary transition-colors block mt-1">+(593) 962-526936</a>
                   </div>
                 </div>
 
@@ -129,22 +129,22 @@ export default function Contact() {
           {/* Form */}
           <div className="lg:col-span-2 bg-white p-8 md:p-12 rounded-2xl shadow-xl border border-border">
             <h3 className="text-3xl font-bold mb-8">Send a Message</h3>
-            
+
             <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6">
               <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                 <div className="space-y-2">
                   <label className="text-sm font-semibold text-foreground">{t('form.name')} *</label>
-                  <input 
+                  <input
                     {...form.register("name")}
                     className="w-full px-4 py-3 rounded-xl bg-background border border-border focus:outline-none focus:ring-2 focus:ring-primary/50 transition-all"
                     placeholder="John Doe"
                   />
                   {form.formState.errors.name && <p className="text-sm text-destructive">{form.formState.errors.name.message}</p>}
                 </div>
-                
+
                 <div className="space-y-2">
                   <label className="text-sm font-semibold text-foreground">{t('form.email')} *</label>
-                  <input 
+                  <input
                     {...form.register("email")}
                     className="w-full px-4 py-3 rounded-xl bg-background border border-border focus:outline-none focus:ring-2 focus:ring-primary/50 transition-all"
                     placeholder="john@example.com"
@@ -156,16 +156,16 @@ export default function Contact() {
               <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                 <div className="space-y-2">
                   <label className="text-sm font-semibold text-foreground">{t('form.phone')}</label>
-                  <input 
+                  <input
                     {...form.register("phone")}
                     className="w-full px-4 py-3 rounded-xl bg-background border border-border focus:outline-none focus:ring-2 focus:ring-primary/50 transition-all"
                     placeholder="(559) 555-0100"
                   />
                 </div>
-                
+
                 <div className="space-y-2">
                   <label className="text-sm font-semibold text-foreground">{t('form.service')} *</label>
-                  <select 
+                  <select
                     {...form.register("service")}
                     className="w-full px-4 py-3 rounded-xl bg-background border border-border focus:outline-none focus:ring-2 focus:ring-primary/50 transition-all"
                   >
@@ -180,7 +180,7 @@ export default function Contact() {
 
               <div className="space-y-2">
                 <label className="text-sm font-semibold text-foreground">{t('form.message')} *</label>
-                <textarea 
+                <textarea
                   {...form.register("message")}
                   rows={5}
                   className="w-full px-4 py-3 rounded-xl bg-background border border-border focus:outline-none focus:ring-2 focus:ring-primary/50 transition-all resize-none"
@@ -189,10 +189,10 @@ export default function Contact() {
                 {form.formState.errors.message && <p className="text-sm text-destructive">{form.formState.errors.message.message}</p>}
               </div>
 
-              <Button 
-                type="submit" 
-                variant="accent" 
-                size="lg" 
+              <Button
+                type="submit"
+                variant="accent"
+                size="lg"
                 className="w-full text-lg"
                 disabled={submitContact.isPending}
               >

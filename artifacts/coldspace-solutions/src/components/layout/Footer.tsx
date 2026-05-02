@@ -53,11 +53,11 @@ export function Footer() {
             <ul className="space-y-4">
               <li className="flex items-start gap-3">
                 <MapPin className="text-accent shrink-0 mt-1" size={20} />
-                <span className="text-primary-foreground/80">Serving Central Valley,<br/>California, USA</span>
+                <span className="text-primary-foreground/80">Serving Central Valley,<br />California, USA</span>
               </li>
               <li className="flex items-center gap-3">
                 <Phone className="text-accent shrink-0" size={20} />
-                <a href="tel:+15595550100" className="text-primary-foreground/80 hover:text-white">+1 (559) 555-0100</a>
+                <a href="tel:+593962526936" className="text-primary-foreground/80 hover:text-white">+(593) 962-526936</a>
               </li>
               <li className="flex items-center gap-3">
                 <Mail className="text-accent shrink-0" size={20} />

@@ -1,26 +1,18 @@
-import { pgTable, text, serial, timestamp, pgEnum } from "drizzle-orm/pg-core";
+import { sqliteTable, text, integer } from "drizzle-orm/sqlite-core";
 import { createInsertSchema } from "drizzle-zod";
 import { z } from "zod/v4";
 
-export const serviceTypeEnum = pgEnum("service_type", [
-  "hvac",
-  "refrigeration",
-  "maintenance",
-  "emergency",
-  "other",
-]);
-
-export const languageEnum = pgEnum("language", ["en", "es"]);
-
-export const contactsTable = pgTable("contacts", {
-  id: serial("id").primaryKey(),
+export const contactsTable = sqliteTable("contacts", {
+  id: integer("id").primaryKey({ autoIncrement: true }),
   name: text("name").notNull(),
   email: text("email").notNull(),
   phone: text("phone"),
-  service: serviceTypeEnum("service").notNull(),
+  service: text("service").notNull(),
   message: text("message").notNull(),
-  language: languageEnum("language").notNull().default("en"),
-  createdAt: timestamp("created_at").defaultNow().notNull(),
+  language: text("language").notNull().default("en"),
+  createdAt: integer("created_at", { mode: "timestamp" })
+    .notNull()
+    .default(new Date()),
 });
 
 export const insertContactSchema = createInsertSchema(contactsTable).omit({

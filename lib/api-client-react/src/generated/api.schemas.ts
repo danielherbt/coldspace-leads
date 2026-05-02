@@ -52,3 +52,24 @@ export interface ContactFormResponse {
 export interface ErrorResponse {
   error: string;
 }
+
+export interface ContactItem {
+  id: number;
+  name: string;
+  email: string;
+  phone?: string | null;
+  service: string;
+  message: string;
+  language: string;
+  createdAt: string;
+}
+
+export interface ContentItem {
+  key: string;
+  value?: string | null;
+  updatedAt: string;
+}
+
+export interface UpdateContentInput {
+  value: string | null;
+}

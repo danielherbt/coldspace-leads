@@ -15,6 +15,13 @@ import About from "@/pages/About";
 import Testimonials from "@/pages/Testimonials";
 import Contact from "@/pages/Contact";
 
+// Admin Layout & Pages
+import { AdminLayout } from "@/components/layout/AdminLayout";
+import AdminDashboard from "@/pages/admin/AdminDashboard";
+import AdminContent from "@/pages/admin/AdminContent";
+import AdminContacts from "@/pages/admin/AdminContacts";
+import { useLocation } from "wouter";
+
 const queryClient = new QueryClient({
   defaultOptions: {
     queries: {
@@ -37,20 +44,40 @@ function Router() {
   );
 }
 
+function LayoutSelector() {
+  const [location] = useLocation();
+  const isAdmin = location.startsWith("/admin");
+
+  if (isAdmin) {
+    return (
+      <Switch>
+        <Route path="/admin" component={() => <AdminLayout><AdminDashboard /></AdminLayout>} />
+        <Route path="/admin/content" component={() => <AdminLayout><AdminContent /></AdminLayout>} />
+        <Route path="/admin/contacts" component={() => <AdminLayout><AdminContacts /></AdminLayout>} />
+        <Route component={NotFound} />
+      </Switch>
+    );
+  }
+
+  return (
+    <div className="flex flex-col min-h-screen relative">
+      <Navbar />
+      <div className="flex-grow flex flex-col">
+        <Router />
+      </div>
+      <Footer />
+      <WhatsAppButton />
+    </div>
+  );
+}
+
 function App() {
   return (
     <QueryClientProvider client={queryClient}>
       <I18nProvider>
         <TooltipProvider>
           <WouterRouter base={import.meta.env.BASE_URL.replace(/\/$/, "")}>
-            <div className="flex flex-col min-h-screen relative">
-              <Navbar />
-              <div className="flex-grow flex flex-col">
-                <Router />
-              </div>
-              <Footer />
-              <WhatsAppButton />
-            </div>
+            <LayoutSelector />
           </WouterRouter>
           <Toaster />
         </TooltipProvider>

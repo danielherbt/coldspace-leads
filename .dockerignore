@@ -1,0 +1,67 @@
+# Dependencies
+node_modules
+.pnpm-store
+
+# Git
+.git
+.gitignore
+
+# Development files
+*.log
+*.pid
+*.env
+.env.local
+.env.development
+.env.test
+
+# IDE
+.vscode
+.idea
+*.swp
+*.swo
+
+# Build artifacts (will be built inside Docker)
+artifacts/*/dist
+artifacts/*/node_modules
+lib/*/dist
+lib/*/node_modules
+scripts/dist
+scripts/node_modules
+
+# Docker files (not needed inside)
+docker-compose.yml
+Dockerfile*
+.dockerignore
+
+# Database data
+db-data
+
+# Documentation
+*.md
+!.md
+
+# Test files
+**/*.test.ts
+**/*.test.tsx
+**/*.spec.ts
+**/*.spec.tsx
+**/__tests__
+
+# Temporary files
+tmp
+temp
+*.tmp
+*.temp
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Deployment scripts
+deploy_*.zip
+package_deploy.sh
+
+# Replit specific
+.replit
+.replitignore
+.agents

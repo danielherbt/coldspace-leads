@@ -10,5 +10,8 @@ export * from "./contactFormInput";
 export * from "./contactFormInputLanguage";
 export * from "./contactFormInputService";
 export * from "./contactFormResponse";
+export * from "./contactItem";
+export * from "./contentItem";
 export * from "./errorResponse";
 export * from "./healthStatus";
+export * from "./updateContentInput";

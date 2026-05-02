@@ -19,8 +19,11 @@ import type {
 import type {
   ContactFormInput,
   ContactFormResponse,
+  ContactItem,
+  ContentItem,
   ErrorResponse,
   HealthStatus,
+  UpdateContentInput,
 } from "./api.schemas";
 
 import { customFetch } from "../custom-fetch";
@@ -100,6 +103,82 @@ export function useHealthCheck<
   request?: SecondParameter<typeof customFetch>;
 }): UseQueryResult<TData, TError> & { queryKey: QueryKey } {
   const queryOptions = getHealthCheckQueryOptions(options);
+
+  const query = useQuery(queryOptions) as UseQueryResult<TData, TError> & {
+    queryKey: QueryKey;
+  };
+
+  return { ...query, queryKey: queryOptions.queryKey };
+}
+
+/**
+ * Retrieves all contact submissions
+ * @summary Get all contacts
+ */
+export const getGetContactsUrl = () => {
+  return `/api/contact`;
+};
+
+export const getContacts = async (
+  options?: RequestInit,
+): Promise<ContactItem[]> => {
+  return customFetch<ContactItem[]>(getGetContactsUrl(), {
+    ...options,
+    method: "GET",
+  });
+};
+
+export const getGetContactsQueryKey = () => {
+  return [`/api/contact`] as const;
+};
+
+export const getGetContactsQueryOptions = <
+  TData = Awaited<ReturnType<typeof getContacts>>,
+  TError = ErrorType<unknown>,
+>(options?: {
+  query?: UseQueryOptions<
+    Awaited<ReturnType<typeof getContacts>>,
+    TError,
+    TData
+  >;
+  request?: SecondParameter<typeof customFetch>;
+}) => {
+  const { query: queryOptions, request: requestOptions } = options ?? {};
+
+  const queryKey = queryOptions?.queryKey ?? getGetContactsQueryKey();
+
+  const queryFn: QueryFunction<Awaited<ReturnType<typeof getContacts>>> = ({
+    signal,
+  }) => getContacts({ signal, ...requestOptions });
+
+  return { queryKey, queryFn, ...queryOptions } as UseQueryOptions<
+    Awaited<ReturnType<typeof getContacts>>,
+    TError,
+    TData
+  > & { queryKey: QueryKey };
+};
+
+export type GetContactsQueryResult = NonNullable<
+  Awaited<ReturnType<typeof getContacts>>
+>;
+export type GetContactsQueryError = ErrorType<unknown>;
+
+/**
+ * @summary Get all contacts
+ */
+
+export function useGetContacts<
+  TData = Awaited<ReturnType<typeof getContacts>>,
+  TError = ErrorType<unknown>,
+>(options?: {
+  query?: UseQueryOptions<
+    Awaited<ReturnType<typeof getContacts>>,
+    TError,
+    TData
+  >;
+  request?: SecondParameter<typeof customFetch>;
+}): UseQueryResult<TData, TError> & { queryKey: QueryKey } {
+  const queryOptions = getGetContactsQueryOptions(options);
 
   const query = useQuery(queryOptions) as UseQueryResult<TData, TError> & {
     queryKey: QueryKey;
@@ -193,4 +272,168 @@ export const useSubmitContact = <
   TContext
 > => {
   return useMutation(getSubmitContactMutationOptions(options));
+};
+
+/**
+ * Retrieves all dynamic site content
+ * @summary Get site content
+ */
+export const getGetContentUrl = () => {
+  return `/api/content`;
+};
+
+export const getContent = async (
+  options?: RequestInit,
+): Promise<ContentItem[]> => {
+  return customFetch<ContentItem[]>(getGetContentUrl(), {
+    ...options,
+    method: "GET",
+  });
+};
+
+export const getGetContentQueryKey = () => {
+  return [`/api/content`] as const;
+};
+
+export const getGetContentQueryOptions = <
+  TData = Awaited<ReturnType<typeof getContent>>,
+  TError = ErrorType<unknown>,
+>(options?: {
+  query?: UseQueryOptions<
+    Awaited<ReturnType<typeof getContent>>,
+    TError,
+    TData
+  >;
+  request?: SecondParameter<typeof customFetch>;
+}) => {
+  const { query: queryOptions, request: requestOptions } = options ?? {};
+
+  const queryKey = queryOptions?.queryKey ?? getGetContentQueryKey();
+
+  const queryFn: QueryFunction<Awaited<ReturnType<typeof getContent>>> = ({
+    signal,
+  }) => getContent({ signal, ...requestOptions });
+
+  return { queryKey, queryFn, ...queryOptions } as UseQueryOptions<
+    Awaited<ReturnType<typeof getContent>>,
+    TError,
+    TData
+  > & { queryKey: QueryKey };
+};
+
+export type GetContentQueryResult = NonNullable<
+  Awaited<ReturnType<typeof getContent>>
+>;
+export type GetContentQueryError = ErrorType<unknown>;
+
+/**
+ * @summary Get site content
+ */
+
+export function useGetContent<
+  TData = Awaited<ReturnType<typeof getContent>>,
+  TError = ErrorType<unknown>,
+>(options?: {
+  query?: UseQueryOptions<
+    Awaited<ReturnType<typeof getContent>>,
+    TError,
+    TData
+  >;
+  request?: SecondParameter<typeof customFetch>;
+}): UseQueryResult<TData, TError> & { queryKey: QueryKey } {
+  const queryOptions = getGetContentQueryOptions(options);
+
+  const query = useQuery(queryOptions) as UseQueryResult<TData, TError> & {
+    queryKey: QueryKey;
+  };
+
+  return { ...query, queryKey: queryOptions.queryKey };
+}
+
+/**
+ * Updates the value for a specific content key
+ * @summary Update a content value
+ */
+export const getUpdateContentUrl = (key: string) => {
+  return `/api/content/${key}`;
+};
+
+export const updateContent = async (
+  key: string,
+  updateContentInput: UpdateContentInput,
+  options?: RequestInit,
+): Promise<ContentItem> => {
+  return customFetch<ContentItem>(getUpdateContentUrl(key), {
+    ...options,
+    method: "PUT",
+    headers: { "Content-Type": "application/json", ...options?.headers },
+    body: JSON.stringify(updateContentInput),
+  });
+};
+
+export const getUpdateContentMutationOptions = <
+  TError = ErrorType<unknown>,
+  TContext = unknown,
+>(options?: {
+  mutation?: UseMutationOptions<
+    Awaited<ReturnType<typeof updateContent>>,
+    TError,
+    { key: string; data: BodyType<UpdateContentInput> },
+    TContext
+  >;
+  request?: SecondParameter<typeof customFetch>;
+}): UseMutationOptions<
+  Awaited<ReturnType<typeof updateContent>>,
+  TError,
+  { key: string; data: BodyType<UpdateContentInput> },
+  TContext
+> => {
+  const mutationKey = ["updateContent"];
+  const { mutation: mutationOptions, request: requestOptions } = options
+    ? options.mutation &&
+      "mutationKey" in options.mutation &&
+      options.mutation.mutationKey
+      ? options
+      : { ...options, mutation: { ...options.mutation, mutationKey } }
+    : { mutation: { mutationKey }, request: undefined };
+
+  const mutationFn: MutationFunction<
+    Awaited<ReturnType<typeof updateContent>>,
+    { key: string; data: BodyType<UpdateContentInput> }
+  > = (props) => {
+    const { key, data } = props ?? {};
+
+    return updateContent(key, data, requestOptions);
+  };
+
+  return { mutationFn, ...mutationOptions };
+};
+
+export type UpdateContentMutationResult = NonNullable<
+  Awaited<ReturnType<typeof updateContent>>
+>;
+export type UpdateContentMutationBody = BodyType<UpdateContentInput>;
+export type UpdateContentMutationError = ErrorType<unknown>;
+
+/**
+ * @summary Update a content value
+ */
+export const useUpdateContent = <
+  TError = ErrorType<unknown>,
+  TContext = unknown,
+>(options?: {
+  mutation?: UseMutationOptions<
+    Awaited<ReturnType<typeof updateContent>>,
+    TError,
+    { key: string; data: BodyType<UpdateContentInput> },
+    TContext
+  >;
+  request?: SecondParameter<typeof customFetch>;
+}): UseMutationResult<
+  Awaited<ReturnType<typeof updateContent>>,
+  TError,
+  { key: string; data: BodyType<UpdateContentInput> },
+  TContext
+> => {
+  return useMutation(getUpdateContentMutationOptions(options));
 };

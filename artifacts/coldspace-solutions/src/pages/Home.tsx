@@ -3,9 +3,21 @@ import { Link } from "wouter";
 import { useI18n } from "@/lib/i18n";
 import { Button } from "@/components/ui/Button";
 import { ShieldCheck, Zap, ThumbsUp, ArrowRight, PhoneCall, Snowflake, Thermometer, Wrench } from "lucide-react";
+import { useGetContent } from "@workspace/api-client-react";
 
 export default function Home() {
   const { t } = useI18n();
+  const { data: content } = useGetContent();
+
+  const getDynamicContent = (key: string, fallback: string) => {
+    const dbItem = content?.find(c => c.key === key);
+    return dbItem && dbItem.value ? dbItem.value : fallback;
+  };
+
+  const heroTitle = getDynamicContent("hero_title", t('hero.title'));
+  const heroSubtitle = getDynamicContent("hero_subtitle", t('hero.subtitle'));
+  const aboutText = getDynamicContent("about_text", t('about.desc'));
+  const heroBgImage = getDynamicContent("hero_bg_image", `${import.meta.env.BASE_URL}images/hero-hvac.png`);
 
   const fadeIn = {
     initial: { opacity: 0, y: 20 },
@@ -19,16 +31,16 @@ export default function Home() {
       <section className="relative min-h-[90vh] flex items-center justify-center overflow-hidden">
         {/* Background Image & Overlay */}
         <div className="absolute inset-0 z-0">
-          <img 
-            src={`${import.meta.env.BASE_URL}images/hero-hvac.png`} 
-            alt="HVAC Unit" 
+          <img
+            src={heroBgImage}
+            alt="HVAC Unit"
             className="w-full h-full object-cover object-center"
           />
           <div className="absolute inset-0 bg-gradient-to-r from-primary/90 via-primary/70 to-transparent"></div>
         </div>
 
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 w-full">
-          <motion.div 
+          <motion.div
             className="max-w-2xl text-white"
             initial="initial"
             animate="animate"
@@ -41,15 +53,15 @@ export default function Home() {
               <Zap size={16} className="text-accent" />
               {t('hero.badge')}
             </motion.div>
-            
-            <motion.h1 variants={fadeIn} className="text-5xl md:text-6xl lg:text-7xl font-extrabold leading-[1.1] mb-6 text-white">
-              {t('hero.title')}
+
+            <motion.h1 variants={fadeIn} className="text-5xl md:text-6xl lg:text-7xl font-extrabold leading-[1.1] mb-6 text-white whitespace-pre-line">
+              {heroTitle}
             </motion.h1>
-            
-            <motion.p variants={fadeIn} className="text-lg md:text-xl text-white/90 mb-10 leading-relaxed font-medium">
-              {t('hero.subtitle')}
+
+            <motion.p variants={fadeIn} className="text-lg md:text-xl text-white/90 mb-10 leading-relaxed font-medium whitespace-pre-line">
+              {heroSubtitle}
             </motion.p>
-            
+
             <motion.div variants={fadeIn} className="flex flex-col sm:flex-row gap-4">
               <Link href="/contact">
                 <Button variant="accent" size="lg" className="w-full sm:w-auto text-lg">
@@ -57,10 +69,10 @@ export default function Home() {
                   <ArrowRight className="ml-2" size={20} />
                 </Button>
               </Link>
-              <a href="tel:+15595550100">
+              <a href="tel:+593962526936">
                 <Button variant="outline" size="lg" className="w-full sm:w-auto text-lg bg-white/10 text-white border-white/30 hover:bg-white/20">
                   <PhoneCall className="mr-2" size={20} />
-                  +1 (559) 555-0100
+                  +(593) 962-526936
                 </Button>
               </a>
             </motion.div>
@@ -146,22 +158,22 @@ export default function Home() {
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
             <div className="relative">
               <div className="absolute -inset-4 bg-secondary/10 rounded-[3rem] transform -rotate-3 z-0"></div>
-              <img 
-                src={`${import.meta.env.BASE_URL}images/tech-team.png`} 
-                alt="Our Team" 
+              <img
+                src={`${import.meta.env.BASE_URL}images/tech-team.png`}
+                alt="Our Team"
                 className="relative z-10 rounded-2xl shadow-2xl w-full object-cover aspect-[4/3]"
               />
             </div>
-            
+
             <div>
               <div className="inline-block px-4 py-1.5 rounded-full bg-primary/10 text-primary font-bold text-sm mb-6">
                 {t('about.badge')}
               </div>
               <h2 className="text-4xl font-extrabold mb-6 leading-tight">{t('about.title')}</h2>
-              <p className="text-lg text-muted-foreground mb-8">
-                {t('about.desc')}
+              <p className="text-lg text-muted-foreground mb-8 whitespace-pre-line">
+                {aboutText}
               </p>
-              
+
               <ul className="space-y-4 mb-10">
                 {[t('about.bullet1'), t('about.bullet2'), t('about.bullet3')].map((item, i) => (
                   <li key={i} className="flex items-center gap-3">
@@ -172,7 +184,7 @@ export default function Home() {
                   </li>
                 ))}
               </ul>
-              
+
               <Link href="/about">
                 <Button variant="primary" size="lg">
                   {t('btn.learnMore')}
@@ -190,10 +202,10 @@ export default function Home() {
           <svg className="h-full w-full" viewBox="0 0 100 100" preserveAspectRatio="none">
             <defs>
               <pattern id="grid" width="8" height="8" patternUnits="userSpaceOnUse">
-                <path d="M 8 0 L 0 0 0 8" fill="none" stroke="white" strokeWidth="0.5"/>
+                <path d="M 8 0 L 0 0 0 8" fill="none" stroke="white" strokeWidth="0.5" />
               </pattern>
             </defs>
-            <rect width="100" height="100" fill="url(#grid)"/>
+            <rect width="100" height="100" fill="url(#grid)" />
           </svg>
         </div>
 
