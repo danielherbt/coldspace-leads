@@ -11,13 +11,14 @@ export function Footer() {
         <div className="grid grid-cols-1 md:grid-cols-3 gap-12 mb-12">
           {/* Brand */}
           <div className="space-y-4">
-            <div className="flex flex-col">
-              <span className="font-display font-extrabold text-3xl tracking-tight text-white leading-none">
-                ColdSpace<span className="text-secondary">.</span>
-              </span>
-              <span className="text-sm font-semibold text-accent tracking-widest uppercase">
-                Solutions
-              </span>
+            <div className="flex flex-col items-start">
+              <div className="bg-white p-2 rounded-lg inline-block">
+                <img 
+                  src={`${import.meta.env.BASE_URL}images/logo.png`} 
+                  alt="ColdSpace Solutions Logo" 
+                  className="h-16 w-auto"
+                />
+              </div>
             </div>
             <p className="text-primary-foreground/80 leading-relaxed max-w-sm">
               {t('footer.about')}
@@ -39,11 +40,11 @@ export function Footer() {
           <div>
             <h4 className="font-display text-xl font-bold mb-6 text-white">{t('footer.quickLinks')}</h4>
             <ul className="space-y-3">
-              <li><Link href="/" className="text-primary-foreground/80 hover:text-secondary transition-colors">{t('nav.home')}</Link></li>
-              <li><Link href="/services" className="text-primary-foreground/80 hover:text-secondary transition-colors">{t('nav.services')}</Link></li>
-              <li><Link href="/about" className="text-primary-foreground/80 hover:text-secondary transition-colors">{t('nav.about')}</Link></li>
-              <li><Link href="/testimonials" className="text-primary-foreground/80 hover:text-secondary transition-colors">{t('nav.testimonials')}</Link></li>
-              <li><Link href="/contact" className="text-primary-foreground/80 hover:text-secondary transition-colors">{t('nav.contact')}</Link></li>
+              <li><a href="#home" className="text-primary-foreground/80 hover:text-secondary transition-colors">{t('nav.home')}</a></li>
+              <li><a href="#services" className="text-primary-foreground/80 hover:text-secondary transition-colors">{t('nav.services')}</a></li>
+              <li><a href="#about" className="text-primary-foreground/80 hover:text-secondary transition-colors">{t('nav.about')}</a></li>
+              <li><a href="#testimonials" className="text-primary-foreground/80 hover:text-secondary transition-colors">{t('nav.testimonials')}</a></li>
+              <li><a href="#contact" className="text-primary-foreground/80 hover:text-secondary transition-colors">{t('nav.contact')}</a></li>
             </ul>
           </div>
 
@@ -57,7 +58,7 @@ export function Footer() {
               </li>
               <li className="flex items-center gap-3">
                 <Phone className="text-accent shrink-0" size={20} />
-                <a href="tel:+593962526936" className="text-primary-foreground/80 hover:text-white">+(593) 962-526936</a>
+                <a href="tel:+12097615932" className="text-primary-foreground/80 hover:text-white">209-761-5932</a>
               </li>
               <li className="flex items-center gap-3">
                 <Mail className="text-accent shrink-0" size={20} />

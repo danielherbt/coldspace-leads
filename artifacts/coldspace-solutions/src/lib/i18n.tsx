@@ -13,7 +13,7 @@ const translations: Translations = {
     'nav.about': 'About Us',
     'nav.testimonials': 'Testimonials',
     'nav.contact': 'Contact',
-    
+
     // Buttons
     'btn.quote': 'Get a Free Quote',
     'btn.call': 'Call Now',
@@ -23,15 +23,15 @@ const translations: Translations = {
     'btn.learnMore': 'Learn More',
 
     // Hero
-    'hero.badge': '24/7 Emergency Service in Central Valley',
+    'hero.badge': '24/7 Emergency Service in Central Valley, Sacramento, & Bay Area',
     'hero.title': 'Expert HVAC & Refrigeration Solutions',
     'hero.subtitle': 'Reliable, professional, and efficient climate control and refrigeration services for residential and commercial needs across the Central Valley.',
-    
+
     // Trust
     'trust.licensed': 'Licensed & Insured',
     'trust.fast': 'Fast Response',
     'trust.satisfaction': '100% Satisfaction',
-    
+
     // Services Preview
     'services.title': 'Our Services',
     'services.subtitle': 'Comprehensive climate solutions tailored to your needs',
@@ -94,7 +94,7 @@ const translations: Translations = {
     'hero.badge': 'Servicio de Emergencia 24/7 en Central Valley',
     'hero.title': 'Soluciones Expertas en HVAC y Refrigeración',
     'hero.subtitle': 'Servicios de control de clima y refrigeración confiables, profesionales y eficientes para necesidades residenciales y comerciales en Central Valley.',
-    
+
     // Trust
     'trust.licensed': 'Licencia y Seguro',
     'trust.fast': 'Respuesta Rápida',

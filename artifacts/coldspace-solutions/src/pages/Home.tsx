@@ -69,10 +69,10 @@ export default function Home() {
                   <ArrowRight className="ml-2" size={20} />
                 </Button>
               </Link>
-              <a href="tel:+593962526936">
+              <a href="tel:+12097615932">
                 <Button variant="outline" size="lg" className="w-full sm:w-auto text-lg bg-white/10 text-white border-white/30 hover:bg-white/20">
                   <PhoneCall className="mr-2" size={20} />
-                  +(593) 962-526936
+                  209-761-5932
                 </Button>
               </a>
             </motion.div>

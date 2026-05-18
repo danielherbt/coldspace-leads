@@ -31,14 +31,22 @@ const queryClient = new QueryClient({
   },
 });
 
+function SinglePage() {
+  return (
+    <div className="w-full flex flex-col">
+      <div id="home"><Home /></div>
+      <div id="services"><Services /></div>
+      <div id="about"><About /></div>
+      <div id="testimonials"><Testimonials /></div>
+      <div id="contact"><Contact /></div>
+    </div>
+  );
+}
+
 function Router() {
   return (
     <Switch>
-      <Route path="/" component={Home} />
-      <Route path="/services" component={Services} />
-      <Route path="/about" component={About} />
-      <Route path="/testimonials" component={Testimonials} />
-      <Route path="/contact" component={Contact} />
+      <Route path="/" component={SinglePage} />
       <Route component={NotFound} />
     </Switch>
   );
