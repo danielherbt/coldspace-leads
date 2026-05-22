@@ -21,13 +21,12 @@ if ! command -v gcloud &> /dev/null; then
     exit 1
 fi
 
-# Build and push Docker image
-echo "Building Docker image..."
-#docker build -t ${IMAGE}:latest .
-podman build -t ${IMAGE}:latest .
+# Build and push Docker image using Cloud Build
+echo "Building and pushing Docker image via Cloud Build..."
+gcloud builds submit --tag ${IMAGE}:latest .
 
-echo "Pushing Docker image to GCR..."
-podman push ${IMAGE}:latest
+# Production database URL using Unix socket for Cloud SQL
+PROD_DB_URL="mysql://root:d4taMa1n162738@localhost/cold-db-mysql?socketPath=/cloudsql/coldspace-leads:us-east1:cold-db-mysql"
 
 # Deploy to Cloud Run
 echo "Deploying to Cloud Run..."
@@ -43,8 +42,9 @@ gcloud run deploy ${SERVICE_NAME} \
     --max-instances 10 \
     --concurrency 80 \
     --timeout 60s \
-    --set-env-vars TURSO_DATABASE_URL=libsql://coldspace-leads-danielherbt.aws-us-west-2.turso.io \
-    --set-secrets TURSO_AUTH_TOKEN=TURSO_AUTH_TOKEN:latest
+    --add-cloudsql-instances=coldspace-leads:us-east1:cold-db-mysql \
+    --remove-secrets=TURSO_AUTH_TOKEN \
+    --update-env-vars DATABASE_URL="${PROD_DB_URL}"
 
 echo ""
 echo "=== Deployment Complete ==="

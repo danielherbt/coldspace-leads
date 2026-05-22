@@ -14,7 +14,8 @@
     "drizzle-orm": "^0.45.1",
     "express": "^5",
     "cookie-parser": "^1.4.7",
-    "cors": "^2"
+    "cors": "^2",
+    "mysql2": "^3.9.7"
   },
   "devDependencies": {
     "@types/node": "^20",

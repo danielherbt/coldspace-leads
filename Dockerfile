@@ -39,18 +39,14 @@ COPY --from=builder /app/lib ./lib
 COPY --from=builder /app/artifacts/api-server ./artifacts/api-server
 COPY --from=builder /app/artifacts/coldspace-solutions/dist/public ./artifacts/coldspace-solutions/dist/public
 
-# Install libsql native bindings
-RUN cd /app/artifacts/api-server && pnpm rebuild @libsql/client
-
 # Set environment variables
 ENV NODE_ENV=production
 ENV PORT=8080
-ENV TURSO_DATABASE_URL=libsql://coldspace-leads-danielherbt.aws-us-west-2.turso.io
-ENV TURSO_AUTH_TOKEN=${TURSO_AUTH_TOKEN}
+ENV DATABASE_URL=${DATABASE_URL}
 
 # Expose port
 EXPOSE 8080
 
 # Run the server
 WORKDIR /app/artifacts/api-server
-CMD ["node", "dist/index.cjs"]
+CMD ["node", "dist/index.js"]

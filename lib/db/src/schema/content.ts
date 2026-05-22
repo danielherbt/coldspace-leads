@@ -1,13 +1,14 @@
-import { sqliteTable, text, integer } from "drizzle-orm/sqlite-core";
+import { mysqlTable, text, varchar, timestamp } from "drizzle-orm/mysql-core";
 import { createInsertSchema } from "drizzle-zod";
 import { z } from "zod/v4";
 
-export const siteContentTable = sqliteTable("site_content", {
-  key: text("key").primaryKey(),
+export const siteContentTable = mysqlTable("site_content", {
+  key: varchar("key", { length: 255 }).primaryKey(),
   value: text("value"),
-  updatedAt: integer("updated_at", { mode: "timestamp" })
+  updatedAt: timestamp("updated_at")
     .notNull()
-    .default(new Date()),
+    .defaultNow()
+    .onUpdateNow(),
 });
 
 export const insertSiteContentSchema = createInsertSchema(

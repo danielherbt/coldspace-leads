@@ -1,18 +1,18 @@
-import { sqliteTable, text, integer } from "drizzle-orm/sqlite-core";
+import { mysqlTable, varchar, text, timestamp, serial } from "drizzle-orm/mysql-core";
 import { createInsertSchema } from "drizzle-zod";
 import { z } from "zod/v4";
 
-export const contactsTable = sqliteTable("contacts", {
-  id: integer("id").primaryKey({ autoIncrement: true }),
-  name: text("name").notNull(),
-  email: text("email").notNull(),
-  phone: text("phone"),
-  service: text("service").notNull(),
+export const contactsTable = mysqlTable("contacts", {
+  id: serial("id").primaryKey(),
+  name: varchar("name", { length: 255 }).notNull(),
+  email: varchar("email", { length: 255 }).notNull(),
+  phone: varchar("phone", { length: 255 }),
+  service: varchar("service", { length: 255 }).notNull(),
   message: text("message").notNull(),
-  language: text("language").notNull().default("en"),
-  createdAt: integer("created_at", { mode: "timestamp" })
+  language: varchar("language", { length: 50 }).notNull().default("en"),
+  createdAt: timestamp("created_at")
     .notNull()
-    .default(new Date()),
+    .defaultNow(),
 });
 
 export const insertContactSchema = createInsertSchema(contactsTable).omit({
